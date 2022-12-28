@@ -23,8 +23,8 @@ Map<int, Color> color =
 MaterialColor colorCustom = MaterialColor(0xFF049E0A, color);
 
 class LoginUiApp extends StatelessWidget {
-  Color _primaryColor = HexColor('#DC54FE');
-  Color _accentColor = HexColor('#8A02AE');
+  Color _primaryColor = HexColor('#4AA02C');
+  Color _accentColor = HexColor('#6AA121');
 
 
   // Design color
