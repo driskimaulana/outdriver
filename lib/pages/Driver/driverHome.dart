@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:outdriver/view/order_confirmed.dart';
 
 class driverHome extends StatefulWidget {
   const driverHome({super.key});
@@ -25,9 +26,13 @@ class _driverhomestate extends State<driverHome> {
           backgroundColor: Color.fromRGBO(4, 158, 10, 1),
         ),
         onPressed: () {
-
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ConfirmedOrder()));
         },
-        child: Text("Diterima"),
+        child: Text("Terima"),
       );
     }else if(status == 1){
       return TextButton(
