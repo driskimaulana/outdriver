@@ -6,10 +6,26 @@ import 'pages/splash_screen.dart';
 void main() {
   runApp(LoginUiApp());
 }
+Map<int, Color> color =
+{
+  50:Color.fromRGBO(4, 158, 10, .1),
+  100:Color.fromRGBO(4, 158, 10, .2),
+  200:Color.fromRGBO(4, 158, 10, .3),
+  300:Color.fromRGBO(4, 158, 10, .4),
+  400:Color.fromRGBO(4, 158, 10, .5),
+  500:Color.fromRGBO(4, 158, 10, .6),
+  600:Color.fromRGBO(4, 158, 10, .7),
+  700:Color.fromRGBO(4, 158, 10, .8),
+  800:Color.fromRGBO(4, 158, 10, .9),
+  900:Color.fromRGBO(4, 158, 10, 1),
+};
+
+MaterialColor colorCustom = MaterialColor(0xFF049E0A, color);
 
 class LoginUiApp extends StatelessWidget {
   Color _primaryColor = HexColor('#DC54FE');
   Color _accentColor = HexColor('#8A02AE');
+
 
   // Design color
   // Color _primaryColor= HexColor('#FFC867');
@@ -27,12 +43,13 @@ class LoginUiApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Login UI',
       theme: ThemeData(
         primaryColor: _primaryColor,
         accentColor: _accentColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
-        primarySwatch: Colors.grey,
+        primarySwatch: colorCustom,
       ),
       home: SplashScreen(title: 'Flutter Login UI'),
     );

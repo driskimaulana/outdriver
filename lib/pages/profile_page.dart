@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:outdriver/common/theme_helper.dart';
+import 'package:outdriver/pages/Driver/driverHome.dart';
+import 'package:outdriver/pages/User/userHomeNav.dart';
 import 'package:outdriver/pages/login_page.dart';
 import 'package:outdriver/pages/splash_screen.dart';
 import 'package:outdriver/pages/widgets/header_widget.dart';
@@ -76,175 +79,175 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       ),
-      drawer: Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                0.0,
-                1.0
-              ],
-                  colors: [
-                Theme.of(context).primaryColor.withOpacity(0.2),
-                Theme.of(context).accentColor.withOpacity(0.5),
-              ])),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.0, 1.0],
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).accentColor,
-                    ],
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "FlutterTutorial.Net",
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.screen_lock_landscape_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(
-                  'Splash Screen',
-                  style: TextStyle(
-                      fontSize: 17, color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SplashScreen(title: "Splash Screen")));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.login_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Login Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(Icons.person_add_alt_1,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).accentColor),
-                title: Text(
-                  'Registration Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegistrationPage()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.password_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(
-                  'Forgot Password Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordPage()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.verified_user_sharp,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(
-                  'Verification Page',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordVerificationPage()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.logout_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).accentColor,
-                ),
-                title: Text(
-                  'Logout',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).accentColor),
-                ),
-                onTap: () {
-                  SystemNavigator.pop();
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: Container(
+      //     decoration: BoxDecoration(
+      //         gradient: LinearGradient(
+      //             begin: Alignment.topLeft,
+      //             end: Alignment.bottomRight,
+      //             stops: [
+      //           0.0,
+      //           1.0
+      //         ],
+      //             colors: [
+      //           Theme.of(context).primaryColor.withOpacity(0.2),
+      //           Theme.of(context).accentColor.withOpacity(0.5),
+      //         ])),
+      //     child: ListView(
+      //       children: [
+      //         DrawerHeader(
+      //           decoration: BoxDecoration(
+      //             color: Theme.of(context).primaryColor,
+      //             gradient: LinearGradient(
+      //               begin: Alignment.topLeft,
+      //               end: Alignment.bottomRight,
+      //               stops: [0.0, 1.0],
+      //               colors: [
+      //                 Theme.of(context).primaryColor,
+      //                 Theme.of(context).accentColor,
+      //               ],
+      //             ),
+      //           ),
+      //           child: Container(
+      //             alignment: Alignment.bottomLeft,
+      //             child: Text(
+      //               "FlutterTutorial.Net",
+      //               style: TextStyle(
+      //                   fontSize: 25,
+      //                   color: Colors.white,
+      //                   fontWeight: FontWeight.bold),
+      //             ),
+      //           ),
+      //         ),
+      //         ListTile(
+      //           leading: Icon(
+      //             Icons.screen_lock_landscape_rounded,
+      //             size: _drawerIconSize,
+      //             color: Theme.of(context).accentColor,
+      //           ),
+      //           title: Text(
+      //             'Splash Screen',
+      //             style: TextStyle(
+      //                 fontSize: 17, color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) =>
+      //                         SplashScreen(title: "Splash Screen")));
+      //           },
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.login_rounded,
+      //               size: _drawerIconSize,
+      //               color: Theme.of(context).accentColor),
+      //           title: Text(
+      //             'Login Page',
+      //             style: TextStyle(
+      //                 fontSize: _drawerFontSize,
+      //                 color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             Navigator.push(
+      //               context,
+      //               MaterialPageRoute(builder: (context) => LoginPage()),
+      //             );
+      //           },
+      //         ),
+      //         Divider(
+      //           color: Theme.of(context).primaryColor,
+      //           height: 1,
+      //         ),
+      //         ListTile(
+      //           leading: Icon(Icons.person_add_alt_1,
+      //               size: _drawerIconSize,
+      //               color: Theme.of(context).accentColor),
+      //           title: Text(
+      //             'Registration Page',
+      //             style: TextStyle(
+      //                 fontSize: _drawerFontSize,
+      //                 color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             Navigator.push(
+      //               context,
+      //               MaterialPageRoute(builder: (context) => RegistrationPage()),
+      //             );
+      //           },
+      //         ),
+      //         Divider(
+      //           color: Theme.of(context).primaryColor,
+      //           height: 1,
+      //         ),
+      //         ListTile(
+      //           leading: Icon(
+      //             Icons.password_rounded,
+      //             size: _drawerIconSize,
+      //             color: Theme.of(context).accentColor,
+      //           ),
+      //           title: Text(
+      //             'Forgot Password Page',
+      //             style: TextStyle(
+      //                 fontSize: _drawerFontSize,
+      //                 color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (context) => ForgotPasswordPage()),
+      //             );
+      //           },
+      //         ),
+      //         Divider(
+      //           color: Theme.of(context).primaryColor,
+      //           height: 1,
+      //         ),
+      //         ListTile(
+      //           leading: Icon(
+      //             Icons.verified_user_sharp,
+      //             size: _drawerIconSize,
+      //             color: Theme.of(context).accentColor,
+      //           ),
+      //           title: Text(
+      //             'Verification Page',
+      //             style: TextStyle(
+      //                 fontSize: _drawerFontSize,
+      //                 color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (context) => ForgotPasswordVerificationPage()),
+      //             );
+      //           },
+      //         ),
+      //         Divider(
+      //           color: Theme.of(context).primaryColor,
+      //           height: 1,
+      //         ),
+      //         ListTile(
+      //           leading: Icon(
+      //             Icons.logout_rounded,
+      //             size: _drawerIconSize,
+      //             color: Theme.of(context).accentColor,
+      //           ),
+      //           title: Text(
+      //             'Logout',
+      //             style: TextStyle(
+      //                 fontSize: _drawerFontSize,
+      //                 color: Theme.of(context).accentColor),
+      //           ),
+      //           onTap: () {
+      //             SystemNavigator.pop();
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -355,7 +358,61 @@ class _ProfilePageState extends State<ProfilePage> {
                               ],
                             ),
                           ),
-                        )
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration:
+                          ThemeHelper().buttonBoxDecoration(context),
+                          child: ElevatedButton(
+                            style: ThemeHelper().buttonStyle(),
+                            child: Padding(
+                              padding:
+                              EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              child: Text(
+                                'Buat Pesanan'.toUpperCase(),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            onPressed: () {
+                              //After successful login we will redirect to profile page. Let's create profile page now
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          userHomeNav()));
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          decoration:
+                          ThemeHelper().buttonBoxDecoration(context),
+                          child: ElevatedButton(
+                            style: ThemeHelper().buttonStyle(),
+                            child: Padding(
+                              padding:
+                              EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              child: Text(
+                                'Contoh Page Driver'.toUpperCase(),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            onPressed: () {
+                              //After successful login we will redirect to profile page. Let's create profile page now
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          driverHome()));
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   )
