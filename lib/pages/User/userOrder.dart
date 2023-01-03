@@ -15,43 +15,38 @@ class _userorderstate extends State<userOrder> {
     order(id: "4", nama: "Udin Jalaludin", status: 1),
   ];
 
-  Widget getButton(int status){
-    if(status == 0){
+  Widget getButton(int status) {
+    if (status == 0) {
       return TextButton(
         style: TextButton.styleFrom(
           primary: Colors.white,
-          padding: EdgeInsets.all(20),
-          minimumSize: Size(100, 40),
           backgroundColor: Colors.redAccent,
         ),
-        onPressed: () {
-
-        },
+        onPressed: () {},
         child: Text("Batal"),
       );
     }
+    return Text("");
 
-    return TextButton(
-      style: TextButton.styleFrom(
-        primary: Colors.white,
-        padding: EdgeInsets.all(20),
-        minimumSize: Size(100, 40),
-        backgroundColor: Color.fromRGBO(4, 158, 10, 1),
-      ),
-      onPressed: () {
-
-      },
-      child: Text("Selesai"),
-    );
+    // return TextButton(
+    //   style: TextButton.styleFrom(
+    //     primary: Colors.white,
+    //     backgroundColor: Color.fromRGBO(4, 158, 10, 1),
+    //   ),
+    //   onPressed: () {},
+    //   child: Text("Selesai"),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(''),),
+      appBar: AppBar(
+        title: const Text(''),
+      ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        minimum: const EdgeInsets.all(50),
+        minimum: const EdgeInsets.all(10),
         child: Container(
             height: MediaQuery.of(context).size.height,
             child: ListView.builder(
@@ -61,27 +56,40 @@ class _userorderstate extends State<userOrder> {
                   return Card(
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: 70,
                         child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
                           margin: EdgeInsets.symmetric(horizontal: 20),
-                          child:  Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                dataOrder[index].nama,
-                                style: GoogleFonts.inter(
-                                    color: Colors.black, textStyle: TextStyle(fontSize: 20)
-                                ),
+                              Column(
+                                children: [
+                                  Text(
+                                    dataOrder[index].nama,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Text(dataOrder[index].nama,
+                                      style: TextStyle(fontSize: 18)),
+                                ],
                               ),
-                              getButton(dataOrder[index].status)
+                              SizedBox(
+                                width: 20,
+                              ),
+                              getButton(dataOrder[index].status),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  primary: Colors.white,
+                                  backgroundColor: Colors.blue,
+                                ),
+                                onPressed: () {},
+                                child: Text("Detail"),
+                              ),
                             ],
                           ),
-                        )
-                    ),
+                        )),
                   );
-                }
-            )
-        ),
+                })),
       ),
     );
   }
