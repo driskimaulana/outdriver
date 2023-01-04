@@ -11,7 +11,8 @@ import 'package:outdriver/model/listOrder.dart';
 import 'package:outdriver/model/order.dart';
 
 class getOrder extends StatefulWidget {
-  const getOrder({super.key});
+  final bool isGetOrder;
+  const getOrder({required this.isGetOrder, super.key});
   @override
   State<getOrder> createState() => _getorderstate();
 }
@@ -25,13 +26,13 @@ class _getorderstate extends State<getOrder> {
 
   @override
   void initState() {
+    widget.isGetOrder ? changeOrderState() : null;
     loadPosts();
     super.initState();
   }
 
   void dispose() {
-    changeOrderState();
-
+    widget.isGetOrder ? changeOrderState() : null;
     super.dispose();
   }
 
@@ -184,7 +185,7 @@ class _getorderstate extends State<getOrder> {
   }
 
   loadPosts() async {
-    updateLocation();
+    widget.isGetOrder ? updateLocation() : null;
     isLoading = true;
     fetchPost().then((res) async {
       _postsController.add(res);
@@ -273,7 +274,9 @@ class _getorderstate extends State<getOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: widget.isGetOrder
+            ? Text("Getting Order...")
+            : Text("Order History"),
         actions: <Widget>[
           IconButton(
             tooltip: 'Refresh',

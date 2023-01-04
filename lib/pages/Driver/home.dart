@@ -33,7 +33,7 @@ class _driverhomestate extends State<driverHome> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const getOrder(),
+          builder: (context) => const getOrder(isGetOrder: true),
         ),
       );
     } else {
@@ -90,12 +90,13 @@ class _driverhomestate extends State<driverHome> {
                 margin: const EdgeInsets.only(top: 10),
                 child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const userOrder(),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const getOrder(isGetOrder: false),
+                        ),
+                      );
                     },
                     child: const Text("Order History")))
           ],
