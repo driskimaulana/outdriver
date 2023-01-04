@@ -10,14 +10,17 @@ import 'package:outdriver/model/order.dart';
 import 'package:outdriver/pages/User/userOrder.dart';
 //import 'package:outdriver/collegeinfo.dart';
 
-class reviewForm extends StatefulWidget {
+class reviewFormAlreadyReviewed extends StatefulWidget {
   final Order? order;
-  const reviewForm(this.order, {super.key});
+  final double rating;
+  final String review;
+  const reviewFormAlreadyReviewed(this.order, this.rating, this.review,
+      {super.key});
   @override
-  State<reviewForm> createState() => _loginpageState();
+  State<reviewFormAlreadyReviewed> createState() => _loginpageState();
 }
 
-class _loginpageState extends State<reviewForm> {
+class _loginpageState extends State<reviewFormAlreadyReviewed> {
   //final titleController = TextEditingController();
   final commentController = TextEditingController();
   var ratings;
@@ -155,20 +158,10 @@ class _loginpageState extends State<reviewForm> {
                   ],
                 ),
               ),
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "Beri Rating",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
-                  )),
               Center(
                 child: RatingBar.builder(
+                    initialRating: widget.rating,
                     unratedColor: Color.fromARGB(255, 177, 204, 179),
-                    initialRating: 0,
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: false,
@@ -184,76 +177,14 @@ class _loginpageState extends State<reviewForm> {
                       ratings = rating;
                     }),
               ),
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(10),
-                child: TextField(
-                  minLines: 1,
-                  maxLines: 8,
-                  style: TextStyle(color: Colors.black),
-                  controller: commentController,
-                  keyboardType: TextInputType.multiline,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    hintStyle: TextStyle(color: Colors.black),
-                    hintText: 'Komentar (Optional)',
+              Center(
+                child: Text(
+                  widget.review,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  height: 50,
-                  width: 20,
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: TextButton(
-                      onPressed: () {
-                        if (ratings == null) {
-                          //print(ratings);
-                          Fluttertoast.showToast(
-                              msg: 'Please add a rating',
-                              backgroundColor: Colors.black,
-                              textColor: Colors.black,
-                              gravity: ToastGravity.BOTTOM);
-                          // } else if (titleController.text == '') {
-                          //   Fluttertoast.showToast(
-                          //       msg: 'Please add a Title to the review',
-                          //       backgroundColor: Colors.black,
-                          //       textColor: Colors.black,
-                          //       gravity: ToastGravity.BOTTOM);
-                          // } else {
-                          // FirebaseFirestore.instance
-                          //     .collection(collegeinfopage.college_id)
-                          //     .doc(collegeinfopage.emailid)
-                          //     .set({
-                          //   "Email": collegeinfopage.emailid,
-                          //   "Title": titleController.text,
-                          //   "rating": ratings,
-                          //   "Body": commentController.text,
-                          // });
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: TextButton(
-                        style:
-                            TextButton.styleFrom(backgroundColor: Colors.green),
-                        onPressed: () {
-                          createReview(ratings);
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'Add review',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ),
-                      )),
                 ),
               ),
             ],
