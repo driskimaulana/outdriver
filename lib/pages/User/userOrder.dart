@@ -10,6 +10,8 @@ import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/model/listOrder.dart';
 import 'package:outdriver/model/order.dart';
 
+import 'package:outdriver/pages/User/screens/reviewform_screen.dart';
+
 class userOrder extends StatefulWidget {
   const userOrder({super.key});
   @override
@@ -100,7 +102,7 @@ class _userorderstate extends State<userOrder> {
     }
   }
 
-  Widget getButton(String status, String id) {
+  Widget getButton(String status, String id, Order data) {
     if (status == "Waiting") {
       return TextButton(
         style: TextButton.styleFrom(
@@ -120,13 +122,16 @@ class _userorderstate extends State<userOrder> {
     } else if (status == "Rejected") {
       return Text("Rejected");
     }
-
+    print("ini sebelum return get buttonn");
     return TextButton(
       style: TextButton.styleFrom(
         primary: Colors.white,
         backgroundColor: Colors.blue,
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => reviewForm(data)));
+      },
       child: Text("Detail"),
     );
   }
@@ -167,6 +172,7 @@ class _userorderstate extends State<userOrder> {
                             padding: EdgeInsets.only(bottom: 70),
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, int index) {
+                              //  print(snapshot.data[index]);
                               return Card(
                                 child: SizedBox(
                                     width: MediaQuery.of(context).size.width,
@@ -198,8 +204,11 @@ class _userorderstate extends State<userOrder> {
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          getButton(snapshot.data[index].status,
-                                              snapshot.data[index].id),
+                                          getButton(
+                                            snapshot.data[index].status,
+                                            snapshot.data[index].id,
+                                            snapshot.data[index],
+                                          ),
                                         ],
                                       ),
                                     )),
