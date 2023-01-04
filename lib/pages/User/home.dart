@@ -14,7 +14,34 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
         elevation: 0,
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/images/only_logo.png",
+                    height: 50,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "outDriver",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -62,18 +89,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   border: InputBorder.none),
             ),
             Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const userOrder(),
-                        ),
-                      );
-                    },
-                    child: const Text("Order History")))
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: const Color.fromRGBO(28, 180, 54, 1)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const userOrder(),
+                    ),
+                  );
+                },
+                child: const Text("Order History"),
+              ),
+            ),
           ],
         ),
       ),
