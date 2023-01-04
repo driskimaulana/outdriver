@@ -6,6 +6,7 @@ import 'package:outdriver/model/user.dart';
 import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/home.dart';
 
+import 'login.dart';
 import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
     // ignore: unnecessary_new
     new Timer(const Duration(milliseconds: 2000), () async {
-      StatefulWidget redirect = LoginPage();
+      StatefulWidget redirect = Login();
       var isLogin = await SessionManager().containsKey("token");
       if (isLogin) {
         var user = await SessionManager().get("curr_user");
@@ -56,7 +57,11 @@ class _SplashScreenState extends State<SplashScreen> {
         opacity: _isVisible ? 1.0 : 0,
         duration: Duration(milliseconds: 1200),
         child: Center(
-          child: Image.asset("assets/images/outdriver.png"),
+          child: Image.asset(
+            "assets/images/outdriver.png",
+            width: 200,
+            height: 200,
+          ),
         ),
       ),
     );

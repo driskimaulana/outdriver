@@ -60,10 +60,34 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: const BackButton(color: Colors.black),
+        backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
+        leading: const BackButton(color: Colors.white),
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/images/only_logo.png",
+                    height: 50,
+                  ),
+                  const Text(
+                    "outDriver",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         elevation: 0,
       ),
       body: Padding(

@@ -139,8 +139,32 @@ class _userorderstate extends State<userOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text(''),
+        backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/images/only_logo.png",
+                    height: 50,
+                  ),
+                  const Text(
+                    "outDriver",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             tooltip: 'Refresh',

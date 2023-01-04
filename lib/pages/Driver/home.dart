@@ -6,6 +6,7 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/pages/Driver/screens.dart/getOrder_screen.dart';
+import 'package:outdriver/pages/Driver/screens.dart/myreview.dart';
 import 'package:outdriver/pages/profile_page.dart';
 import 'package:outdriver/view/order_confirmed.dart';
 
@@ -46,7 +47,34 @@ class _driverhomestate extends State<driverHome> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
         elevation: 0,
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/images/only_logo.png",
+                    height: 50,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "outDriver",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -75,30 +103,60 @@ class _driverhomestate extends State<driverHome> {
         child: Column(
           children: [
             Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue)),
-                    onPressed: () {
-                      changeOrderState();
-                    },
-                    child: const Text("Get Order"))),
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromRGBO(28, 180, 54, 1),
+                  ),
+                ),
+                onPressed: () {
+                  changeOrderState();
+                },
+                child: const Text("Get Order"),
+              ),
+            ),
             Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 10),
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const getOrder(isGetOrder: false),
-                        ),
-                      );
-                    },
-                    child: const Text("Order History")))
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromRGBO(28, 180, 54, 1),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const getOrder(isGetOrder: false),
+                    ),
+                  );
+                },
+                child: const Text("Order History"),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color.fromRGBO(28, 180, 54, 1),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyReviews(),
+                    ),
+                  );
+                },
+                child: const Text("My Reviews"),
+              ),
+            ),
           ],
         ),
       ),

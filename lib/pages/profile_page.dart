@@ -6,6 +6,7 @@ import 'package:outdriver/common/theme_helper.dart';
 import 'package:outdriver/model/user.dart';
 import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/userHomeNav.dart';
+import 'package:outdriver/pages/login.dart';
 import 'package:outdriver/pages/login_page.dart';
 import 'package:outdriver/pages/splash_screen.dart';
 import 'package:outdriver/pages/widgets/header_widget.dart';
@@ -33,21 +34,23 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
           title: Text(
             "Profile Page",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           elevation: 0.5,
-          iconTheme: IconThemeData(color: Colors.white),
+          // iconTheme: IconThemeData(color: Colors.white),
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: <Color>[
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).accentColor,
+                  Color.fromRGBO(28, 180, 54, 1),
+                  Color.fromARGB(255, 5, 131, 26),
                 ])),
           )),
       body: SingleChildScrollView(
@@ -55,7 +58,8 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Container(
               height: 100,
-              child: HeaderWidget(100, false, Icons.house_rounded),
+              child: HeaderWidget(
+                  100, false, Image.asset("assets/images/outdriver.png")),
             ),
             Container(
               alignment: Alignment.center,
@@ -169,8 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       SessionManager().destroy();
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginPage()),
+                                              builder: (context) => Login()),
                                           (route) => false);
                                     },
                                   ),

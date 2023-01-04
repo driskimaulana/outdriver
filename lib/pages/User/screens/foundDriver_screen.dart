@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _founddriverstate extends State<foundDriver> {
       "latitude": widget.startPosition!.geometry!.location!.lat?.toDouble(),
       "longitude": widget.startPosition!.geometry!.location!.lng?.toDouble()
     };
+    log(body.toString());
     var url = "${Utils.BASE_API_URL}/transaction/searchDriver";
     var token = await SessionManager().get("token");
     dio.options.headers["Authorization"] = 'Bearer ${token}';
@@ -129,7 +131,9 @@ class _founddriverstate extends State<foundDriver> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
           title: const Text('Available Driver'),
         ),
         resizeToAvoidBottomInset: false,

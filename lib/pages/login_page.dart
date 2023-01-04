@@ -58,8 +58,12 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true,
-                  Icons.login_rounded), //let's create a common header widget
+              child: HeaderWidget(
+                _headerHeight,
+                true,
+                Image.asset("assets/images/outdriver.png"),
+                // Icons.login_rounded,
+              ), //let's create a common header widget
             ),
             SafeArea(
               child: Container(

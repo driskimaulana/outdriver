@@ -31,8 +31,8 @@ class _ForgotPasswordVerificationPageState
             children: [
               Container(
                 height: _headerHeight,
-                child: HeaderWidget(
-                    _headerHeight, true, Icons.privacy_tip_outlined),
+                child: HeaderWidget(_headerHeight, true,
+                    Image.asset("assets/images/outdriver.png")),
               ),
               SafeArea(
                 child: Container(
