@@ -68,25 +68,26 @@ class _ProfilePageState extends State<ProfilePage> {
                       return Column(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              border: Border.all(width: 5, color: Colors.white),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 20,
-                                  offset: const Offset(5, 5),
-                                ),
-                              ],
-                            ),
-                            child: Icon(
-                              Icons.person,
-                              size: 80,
-                              color: Colors.grey.shade300,
-                            ),
-                          ),
+                              width: 80,
+                              height: 80,
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border:
+                                    Border.all(width: 5, color: Colors.white),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 20,
+                                    offset: const Offset(5, 5),
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                "assets/images/logo.png",
+                                fit: BoxFit.fill,
+                              )),
                           SizedBox(
                             height: 20,
                           ),

@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/model/listOrder.dart';
 import 'package:outdriver/model/order.dart';
+import 'package:outdriver/view/order_confirmed.dart';
 
 class getOrder extends StatefulWidget {
   final bool isGetOrder;
@@ -140,6 +141,8 @@ class _getorderstate extends State<getOrder> {
     //   'Authorization': 'Bearer $token',
     // });
     if (response.statusCode == 200) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => ConfirmedOrder()));
     } else {
       throw Exception('Failed to load post');
     }

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:outdriver/pages/Driver/home.dart';
 
 class ConfirmedOrder extends StatelessWidget {
   const ConfirmedOrder({super.key});
@@ -19,7 +19,7 @@ class ConfirmedOrder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "images/amico.png",
+                "assets/images/amico.png",
                 width: 330,
                 height: 330,
               ),
@@ -29,6 +29,14 @@ class ConfirmedOrder extends StatelessWidget {
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Poppins"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => driverHome()),
+                      (route) => false);
+                },
+                child: Text("Home"),
               ),
             ],
           ),
