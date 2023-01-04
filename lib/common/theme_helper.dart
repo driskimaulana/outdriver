@@ -77,6 +77,19 @@ class ThemeHelper {
     );
   }
 
+  ButtonStyle buttonStyleAlert() {
+    return ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+      minimumSize: MaterialStateProperty.all(Size(50, 50)),
+      backgroundColor: MaterialStateProperty.all(Colors.red),
+      shadowColor: MaterialStateProperty.all(Colors.transparent),
+    );
+  }
+
   AlertDialog alartDialog(String title, String content, BuildContext context) {
     return AlertDialog(
       title: Text(title),

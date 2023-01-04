@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/pages/User/screens/map_screen.dart';
 import 'package:google_place/google_place.dart';
 
@@ -34,8 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    String apiKey = 'AIzaSyCLJtdyTQwQNcvdQKAMwBYfvbN8m3pifKM';
-    googlePlace = GooglePlace(apiKey);
+    googlePlace = GooglePlace(Utils.MAPS_API_KEY);
 
     startFocusNode = FocusNode();
     endFocusNode = FocusNode();

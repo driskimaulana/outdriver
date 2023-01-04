@@ -1,13 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/common/theme_helper.dart';
+import 'package:outdriver/model/user.dart';
+import 'package:outdriver/pages/Driver/driverHome.dart';
 import 'package:outdriver/pages/User/home.dart';
 
 import 'forgot_password_page.dart';
 import 'profile_page.dart';
 import 'registration_page.dart';
 import 'widgets/header_widget.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,8 +25,27 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String _email = "", _password = "";
+  String _errMessage = "";
   double _headerHeight = 250;
   Key _formKey = GlobalKey<FormState>();
+
+  Future<Map<String, dynamic>?> signIn() async {
+    var body = {'email': _email, 'password': _password};
+    var url = Uri.parse("${Utils.BASE_API_URL}/user/signin");
+    var res = await http.post(url, body: body);
+    if (res.statusCode == 200) {
+      return jsonDecode(res.body());
+    } else if (res.statusCode == 404 || res.statusCode == 400) {
+      setState(() {
+        _errMessage = jsonDecode(res.body())['message'];
+      });
+      return null;
+    } else {
+      print(res.headers['location']);
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +75,12 @@ class _LoginPageState extends State<LoginPage> {
                         'Signin into your account',
                         style: TextStyle(color: Colors.grey),
                       ),
+                      Visibility(
+                          child: Text(
+                            _errMessage,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          visible: _errMessage != "" ? true : false),
                       SizedBox(height: 30.0),
                       Form(
                           key: _formKey,
@@ -56,7 +89,10 @@ class _LoginPageState extends State<LoginPage> {
                               Container(
                                 child: TextField(
                                   decoration: ThemeHelper().textInputDecoration(
-                                      'User Name', 'Enter your user name'),
+                                      'Email', 'Enter your email'),
+                                  onChanged: (value) {
+                                    _email = value;
+                                  },
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -67,6 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                                   obscureText: true,
                                   decoration: ThemeHelper().textInputDecoration(
                                       'Password', 'Enter your password'),
+                                  onChanged: ((value) {
+                                    _password = value;
+                                  }),
                                 ),
                                 decoration:
                                     ThemeHelper().inputBoxDecorationShaddow(),
@@ -108,13 +147,39 @@ class _LoginPageState extends State<LoginPage> {
                                           color: Colors.white),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    //After successful login we will redirect to profile page. Let's create profile page now
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                HomeScreen()));
+                                  onPressed: () async {
+                                    if (_email != "" && _password != "") {
+                                      Map<String, dynamic>? res =
+                                          await signIn();
+                                      if (res != null) {
+                                        User user =
+                                            User.fromJson(res['result']);
+                                        await SessionManager()
+                                            .set("curr_user", user);
+                                        await SessionManager()
+                                            .set("token", res['token']);
+                                        if (user.role == "Customer") {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomeScreen()),
+                                                  (route) => false);
+                                        } else {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          driverHome()),
+                                                  (route) => false);
+                                        }
+                                      }
+                                    } else {
+                                      setState(() {
+                                        _errMessage =
+                                            "Please enter your email and password";
+                                      });
+                                    }
                                   },
                                 ),
                               ),

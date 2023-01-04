@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_f or_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:async';
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/map_utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
@@ -50,14 +52,6 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
-  }
-
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
     Polyline polyline = Polyline(
@@ -71,7 +65,7 @@ class _MapScreenState extends State<MapScreen> {
 
   _getPolyline() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        'AIzaSyCLJtdyTQwQNcvdQKAMwBYfvbN8m3pifKM',
+        Utils.MAPS_API_KEY,
         PointLatLng(widget.startPosition!.geometry!.location!.lat!,
             widget.startPosition!.geometry!.location!.lng!),
         PointLatLng(widget.endPosition!.geometry!.location!.lat!,
@@ -82,7 +76,7 @@ class _MapScreenState extends State<MapScreen> {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       });
       for (var i = 0; i < polylineCoordinates.length - 1; i++) {
-        _distance += calculateDistance(
+        _distance += Utils.calculateDistance(
             polylineCoordinates[i].latitude,
             polylineCoordinates[i].longitude,
             polylineCoordinates[i + 1].latitude,
