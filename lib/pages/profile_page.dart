@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:outdriver/common/theme_helper.dart';
 import 'package:outdriver/model/user.dart';
-import 'package:outdriver/pages/Driver/driverHome.dart';
+import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/userHomeNav.dart';
 import 'package:outdriver/pages/login_page.dart';
 import 'package:outdriver/pages/splash_screen.dart';

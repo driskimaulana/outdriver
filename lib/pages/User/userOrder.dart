@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:outdriver/app_utils.dart';
-import 'package:http/http.dart' as http;
 import 'package:outdriver/model/listOrder.dart';
 import 'package:outdriver/model/order.dart';
 
@@ -25,24 +25,26 @@ class _userorderstate extends State<userOrder> {
     var body = {
       'transactionId': id,
     };
-    var url = Uri.parse("${Utils.BASE_API_URL}/transaction/getTransactions");
+    Dio dio = new Dio();
+    var url = "${Utils.BASE_API_URL}/transaction/getTransactions";
     var token = await SessionManager().get("token");
-    var response = await http.post(url, body: body, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    dio.options.headers["Authorization"] = 'Bearer ${token}';
+    var response = await dio.post(url, data: body);
+    // var response = await http.post(url, body: body, headers: {
+    //   'Authorization': 'Bearer $token',
+    // });
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body());
+      var data = response.data;
       if (data['data'] != null) {
         if (data['data']['status'] == "Accepted") {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Can't cancel Accepted order")));
         } else {
-          url =
-              Uri.parse("${Utils.BASE_API_URL}/transaction/deleteTransaction");
-
-          response = await http.post(url, body: body, headers: {
-            'Authorization': 'Bearer $token',
-          });
+          url = "${Utils.BASE_API_URL}/transaction/deleteTransaction";
+          response = await dio.post(url, data: body);
+          // response = await http.post(url, body: body, headers: {
+          //   'Authorization': 'Bearer $token',
+          // });
           if (response.statusCode == 200) {
           } else {
             throw Exception('Failed to load post');
@@ -59,8 +61,14 @@ class _userorderstate extends State<userOrder> {
   }
 
   loadPosts() async {
+    setState(() {
+      isLoading = true;
+    });
     fetchPost().then((res) async {
       _postsController.add(res);
+      setState(() {
+        isLoading = false;
+      });
       return res;
     });
   }
@@ -72,15 +80,17 @@ class _userorderstate extends State<userOrder> {
   }
 
   Future fetchPost() async {
-    var url = Uri.parse(
-        "${Utils.BASE_API_URL}/transaction/getTransactionByCustomerId");
+    Dio dio = new Dio();
+    var url = "${Utils.BASE_API_URL}/transaction/getTransactionByCustomerId";
     var token = await SessionManager().get("token");
-    var response = await http.get(url, headers: {
-      'Authorization': 'Bearer $token',
-    });
+    dio.options.headers["Authorization"] = 'Bearer ${token}';
+    var response = await dio.get(url);
+    // var response = await http.get(url, headers: {
+    //   'Authorization': 'Bearer $token',
+    // });
     if (response.statusCode == 200) {
-      if (jsonDecode(response.body())['data'] != null) {
-        order = listOrder.fromJson(jsonDecode(response.body()));
+      if (response.data['data'] != null) {
+        order = listOrder.fromJson(response.data);
         return order.order;
       } else {
         return {'message': "empty"};
@@ -143,11 +153,11 @@ class _userorderstate extends State<userOrder> {
         ],
       ),
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        minimum: const EdgeInsets.all(10),
-        child: Stack(
-          children: [
-            Container(
+      body: Stack(
+        children: [
+          SafeArea(
+            minimum: const EdgeInsets.all(10),
+            child: Container(
                 height: MediaQuery.of(context).size.height,
                 child: StreamBuilder(
                     stream: _postsController.stream,
@@ -198,23 +208,23 @@ class _userorderstate extends State<userOrder> {
                       }
                       return Text("Loading");
                     })),
-            isLoading
-                ? Stack(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [
-                      const Opacity(
-                        opacity: 0.8,
-                        child: ModalBarrier(
-                            dismissible: false, color: Colors.black),
-                      ),
-                      const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ],
-                  )
-                : Container()
-          ],
-        ),
+          ),
+          isLoading
+              ? Stack(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    const Opacity(
+                      opacity: 0.8,
+                      child:
+                          ModalBarrier(dismissible: false, color: Colors.black),
+                    ),
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ],
+                )
+              : Container()
+        ],
       ),
     );
   }

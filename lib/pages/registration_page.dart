@@ -1,15 +1,15 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/common/theme_helper.dart';
 import 'package:outdriver/model/user.dart';
-import 'package:outdriver/pages/Driver/driverHome.dart';
+import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/home.dart';
 import 'package:outdriver/pages/widgets/header_widget.dart';
-import 'package:http/http.dart' as http;
 
 import 'profile_page.dart';
 
@@ -35,10 +35,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
       "password": _password,
       "role": _role
     };
-    var url = Uri.parse("${Utils.BASE_API_URL}/user/signup");
-    var response = await http.post(url, body: body);
+    Dio dio = new Dio();
+    var url = "${Utils.BASE_API_URL}/user/signup";
+    var response = await dio.post(url, data: body);
+    // var response = await http.post(url, body: body);
     if (response.statusCode == 201) {
-      var body = jsonDecode(response.body());
+      var body = response.data;
       SessionManager().set("token", body['token']);
 
       User user = User(

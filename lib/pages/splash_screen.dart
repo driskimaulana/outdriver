@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:outdriver/model/user.dart';
-import 'package:outdriver/pages/Driver/driverHome.dart';
+import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/home.dart';
 
 import 'login_page.dart';

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -8,14 +9,13 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/common/theme_helper.dart';
 import 'package:outdriver/model/user.dart';
-import 'package:outdriver/pages/Driver/driverHome.dart';
+import 'package:outdriver/pages/Driver/home.dart';
 import 'package:outdriver/pages/User/home.dart';
 
 import 'forgot_password_page.dart';
 import 'profile_page.dart';
 import 'registration_page.dart';
 import 'widgets/header_widget.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -31,14 +31,16 @@ class _LoginPageState extends State<LoginPage> {
   Key _formKey = GlobalKey<FormState>();
 
   Future<Map<String, dynamic>?> signIn() async {
+    Dio dio = new Dio();
     var body = {'email': _email, 'password': _password};
-    var url = Uri.parse("${Utils.BASE_API_URL}/user/signin");
-    var res = await http.post(url, body: body);
+    var url = "${Utils.BASE_API_URL}/user/signin";
+    var res = await dio.post(url, data: body);
+    // var res = await http.post(url, body: body);
     if (res.statusCode == 200) {
-      return jsonDecode(res.body());
+      return res.data;
     } else if (res.statusCode == 404 || res.statusCode == 400) {
       setState(() {
-        _errMessage = jsonDecode(res.body())['message'];
+        _errMessage = res.data['message'];
       });
       return null;
     } else {

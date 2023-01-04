@@ -12,14 +12,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_place/google_place.dart';
 import 'package:outdriver/pages/User/screens/foundDriver_screen.dart';
 
-List cars = [
-  {'id': 0, 'name': 'Select a Ride', 'price': 0.0},
-  {'id': 1, 'name': 'UberGo', 'price': 230.0},
-  {'id': 2, 'name': 'Go Sedan', 'price': 300.0},
-  {'id': 3, 'name': 'UberXL', 'price': 500.0},
-  {'id': 4, 'name': 'UberAuto', 'price': 140.0},
-];
-
 class MapScreen extends StatefulWidget {
   final DetailsResult? startPosition;
   final DetailsResult? endPosition;
