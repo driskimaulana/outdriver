@@ -27,7 +27,6 @@ class _getorderstate extends State<getOrder> {
 
   @override
   void initState() {
-    widget.isGetOrder ? changeOrderState() : null;
     loadPosts();
     super.initState();
   }
@@ -85,6 +84,7 @@ class _getorderstate extends State<getOrder> {
   }
 
   changeOrderState() async {
+    print("asdasd");
     Dio dio = new Dio();
     var url = "${Utils.BASE_API_URL}/user/changeAcceptOrder";
     var token = await SessionManager().get("token");
@@ -117,7 +117,6 @@ class _getorderstate extends State<getOrder> {
     if (response.statusCode == 200) {
       if (response.data['status'] == "Success") {
         await callback(id);
-        loadPosts();
       } else {
         throw Exception('Failed to load post');
       }
@@ -165,6 +164,7 @@ class _getorderstate extends State<getOrder> {
     } else {
       throw Exception('Failed to load post');
     }
+    loadPosts();
   }
 
   doneOrder(String id) async {
@@ -185,6 +185,7 @@ class _getorderstate extends State<getOrder> {
     } else {
       throw Exception('Failed to load post');
     }
+    loadPosts();
   }
 
   loadPosts() async {
@@ -200,6 +201,7 @@ class _getorderstate extends State<getOrder> {
   }
 
   Future fetchPost() async {
+    print("asd");
     Dio dio = new Dio();
     var url = "${Utils.BASE_API_URL}/transaction/getTransactionByDriverId";
     var token = await SessionManager().get("token");

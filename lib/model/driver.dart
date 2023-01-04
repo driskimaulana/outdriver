@@ -14,7 +14,7 @@ class Driver extends User {
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
         location: json['location'],
-        ratings: json['ratings'],
+        ratings: json['ratings'].toDouble(),
         id: json['_id'],
         name: json['name'],
         email: json['email']);
