@@ -278,7 +278,9 @@ class _getorderstate extends State<getOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(28, 180, 54, 1),
         title: widget.isGetOrder
             ? Text("Getting Order...")
             : Text("Order History"),

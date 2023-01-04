@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 class HeaderWidget extends StatefulWidget {
   final double _height;
   final bool _showIcon;
-  final IconData _icon;
+  final Image _image;
 
-  const HeaderWidget(this._height, this._showIcon, this._icon, {Key? key})
+  const HeaderWidget(this._height, this._showIcon, this._image, {Key? key})
       : super(key: key);
 
   @override
   _HeaderWidgetState createState() =>
-      _HeaderWidgetState(_height, _showIcon, _icon);
+      _HeaderWidgetState(_height, _showIcon, _image);
 }
 
 class _HeaderWidgetState extends State<HeaderWidget> {
   double _height;
   bool _showIcon;
-  IconData _icon;
+  Image _icon;
 
   _HeaderWidgetState(this._height, this._showIcon, this._icon);
 
@@ -34,8 +34,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor.withOpacity(0.4),
-                      Theme.of(context).accentColor.withOpacity(0.4),
+                      Color.fromRGBO(28, 180, 54, 1).withOpacity(0.4),
+                      Color.fromRGBO(28, 180, 54, 1).withOpacity(0.4),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -55,7 +55,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor.withOpacity(0.4),
+                      Color.fromRGBO(28, 180, 54, 1).withOpacity(0.4),
                       Theme.of(context).accentColor.withOpacity(0.4),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
@@ -76,8 +76,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               decoration: new BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).accentColor,
+                      Color.fromRGBO(28, 180, 54, 1),
+                      Color.fromARGB(255, 5, 131, 26),
                     ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
@@ -105,20 +105,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     right: 5.0,
                     bottom: 20.0,
                   ),
-                  decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(20),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(100),
-                      topRight: Radius.circular(100),
-                      bottomLeft: Radius.circular(60),
-                      bottomRight: Radius.circular(60),
-                    ),
-                    border: Border.all(width: 5, color: Colors.white),
-                  ),
-                  child: Icon(
-                    _icon,
-                    color: Colors.white,
-                    size: 40.0,
+                  child: Image.asset(
+                    "assets/images/outdriver_transparent.png",
+                    width: 300,
+                    height: 300,
                   ),
                 ),
               ),
