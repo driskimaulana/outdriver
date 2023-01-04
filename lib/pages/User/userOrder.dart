@@ -167,7 +167,7 @@ class _userorderstate extends State<userOrder> {
       'transactionId': id,
     };
     Dio dio = new Dio();
-    var url = "http://localhost:5000/review/checkCustomerReview";
+    var url = "${Utils.BASE_API_URL}/review/checkCustomerReview";
     var token = await SessionManager().get("token");
     // print("TOKEEN :" + token);
     dio.options.headers["Authorization"] = 'Bearer ${token}';
