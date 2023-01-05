@@ -1,4 +1,6 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,7 +29,7 @@ class _loginpageState extends State<reviewForm> {
     return formatted;
   }
 
-  createReview(int rating) async {
+  createReview(double rating) async {
     print(rating);
     var body = {
       "transactionId": widget.order!.id,
@@ -181,7 +183,7 @@ class _loginpageState extends State<reviewForm> {
                         ),
                     onRatingUpdate: (rating) {
                       //print(rating);
-                      ratings = rating;
+                      ratings = rating.toInt();
                     }),
               ),
               Container(
@@ -243,7 +245,8 @@ class _loginpageState extends State<reviewForm> {
                         style:
                             TextButton.styleFrom(backgroundColor: Colors.green),
                         onPressed: () {
-                          createReview(ratings);
+                          log(ratings.toString());
+                          createReview(ratings.toDouble());
                           Navigator.pop(context);
                         },
                         child: Text(

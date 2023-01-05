@@ -94,7 +94,7 @@ class _MyReviewsState extends State<MyReviews> {
                     color: Color.fromRGBO(28, 180, 54, 1),
                   )
                 : SizedBox(
-                    height: MediaQuery.of(context).size.width,
+                    height: 600,
                     child: ListView.builder(
                       itemCount: myreviews.length,
                       itemBuilder: (context, index) {

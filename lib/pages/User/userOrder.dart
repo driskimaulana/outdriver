@@ -138,15 +138,21 @@ class _userorderstate extends State<userOrder> {
 
         if (isReviewed) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => reviewFormAlreadyReviewed(
-                      data,
-                      review.data['data'][0]['rating'],
-                      review.data['data'][0]['comment'])));
+            context,
+            MaterialPageRoute(
+              builder: (context) => reviewFormAlreadyReviewed(
+                  data,
+                  review.data['data'][0]['rating'].toDouble(),
+                  review.data['data'][0]['comment']),
+            ),
+          );
         } else {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => reviewForm(data)));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => reviewForm(data),
+            ),
+          );
         }
         // if (isReviewed) {
         //     print("Masuk Sini");
