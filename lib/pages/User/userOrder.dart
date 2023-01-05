@@ -10,6 +10,9 @@ import 'package:outdriver/app_utils.dart';
 import 'package:outdriver/model/listOrder.dart';
 import 'package:outdriver/model/order.dart';
 
+import 'package:outdriver/pages/User/screens/reviewform_screen.dart';
+import 'package:outdriver/pages/User/screens/reviewform_screen_reviewed.dart';
+
 class userOrder extends StatefulWidget {
   const userOrder({super.key});
   @override
@@ -100,7 +103,7 @@ class _userorderstate extends State<userOrder> {
     }
   }
 
-  Widget getButton(String status, String id) {
+  Widget getButton(String status, String id, Order data) {
     if (status == "Waiting") {
       return TextButton(
         style: TextButton.styleFrom(
@@ -120,15 +123,75 @@ class _userorderstate extends State<userOrder> {
     } else if (status == "Rejected") {
       return Text("Rejected");
     }
-
+    print("ini sebelum return get buttonn");
     return TextButton(
       style: TextButton.styleFrom(
         primary: Colors.white,
         backgroundColor: Colors.blue,
       ),
-      onPressed: () {},
+      onPressed: () async {
+        var review = await isReview(data.id);
+        var isReviewed = true;
+        if (await review.data['data'].isEmpty) {
+          isReviewed = false;
+        }
+
+        if (isReviewed) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => reviewFormAlreadyReviewed(
+                      data,
+                      review.data['data'][0]['rating'],
+                      review.data['data'][0]['comment'])));
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => reviewForm(data)));
+        }
+        // if (isReviewed) {
+        //     print("Masuk Sini");
+        //     Navigator.push(context, MaterialPageRoute(builder: (context) => reviewForm(data)));
+        // }
+        // isReview(data.id).then((val) async {
+        //   print("MASUK KEDALEM SINI");
+        //   print("ini DATANYA" + val);
+        // });
+      },
       child: Text("Detail"),
     );
+  }
+
+  isReview(String id) async {
+    print("MASUK SINI KAN");
+    var body = {
+      'transactionId': id,
+    };
+    Dio dio = new Dio();
+    var url = "${Utils.BASE_API_URL}/review/checkCustomerReview";
+    var token = await SessionManager().get("token");
+    // print("TOKEEN :" + token);
+    dio.options.headers["Authorization"] = 'Bearer ${token}';
+    // try {
+    //   return await dio.post(url, data: body);
+    // } on DioError catch (e) {
+    //   print("ERRROR");
+    //   print(e);
+    // }
+    // print("RESPONSEE: " + response.data['data']);
+    var response = await dio.post(url, data: body);
+    if (response.statusCode == 200) {
+      return response;
+      // print(response.data['data']);
+      // if (response.data['data'].isEmpty) {
+      //   //order = listOrder.fromJson(response.data);
+      //   return false;
+      // } else {
+      //   // return Future.delayed(const Duration(seconds: 1), () => false);
+      //   return true;
+      // }
+    } else {
+      throw Exception('Failed to load post');
+    }
   }
 
   String formatToLocalDate(DateTime dt) {
@@ -191,6 +254,7 @@ class _userorderstate extends State<userOrder> {
                             padding: EdgeInsets.only(bottom: 70),
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, int index) {
+                              //  print(snapshot.data[index]);
                               return Card(
                                 child: SizedBox(
                                     width: MediaQuery.of(context).size.width,
@@ -222,8 +286,11 @@ class _userorderstate extends State<userOrder> {
                                           SizedBox(
                                             width: 20,
                                           ),
-                                          getButton(snapshot.data[index].status,
-                                              snapshot.data[index].id),
+                                          getButton(
+                                            snapshot.data[index].status,
+                                            snapshot.data[index].id,
+                                            snapshot.data[index],
+                                          ),
                                         ],
                                       ),
                                     )),
