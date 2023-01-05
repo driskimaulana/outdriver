@@ -30,12 +30,12 @@ class _loginpageState extends State<reviewFormAlreadyReviewed> {
     return formatted;
   }
 
-  createReview(int rating) async {
+  createReview(double rating) async {
     print(rating);
     var body = {
       "transactionId": widget.order!.id,
       "driverId": widget.order!.driver["_id"],
-      "rating": rating,
+      "rating": rating.toDouble(),
       "comment": commentController.text,
     };
 
@@ -71,10 +71,12 @@ class _loginpageState extends State<reviewFormAlreadyReviewed> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromRGBO(28, 180, 54, 1),
         title: Text(
           "Beri Review",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: Center(
@@ -87,7 +89,7 @@ class _loginpageState extends State<reviewFormAlreadyReviewed> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Color.fromARGB(255, 44, 190, 63),
+                      const Color.fromRGBO(28, 180, 54, 1),
                       Color.fromARGB(255, 67, 204, 108)
                     ],
                     begin: Alignment.centerLeft,
